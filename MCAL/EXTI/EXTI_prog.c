@@ -5,9 +5,9 @@
 /***************** Version	: v1.0      	****************/
 /***********************************************************/
 
-#include "../Libs/stdtypes.h"
-#include "../Libs/bitmath.h"
-#include "../Libs/stderrors.h"
+#include "../../Libs/stdtypes.h"
+#include "../../Libs/bitmath.h"
+#include "../../Libs/stderrors.h"
 
 #include "EXTI_int.h"
 #include "EXTI_private.h"
