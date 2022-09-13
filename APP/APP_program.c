@@ -10,7 +10,7 @@
 #include "../HAL/LED/LED_int.h"
 #include "../MCAL/EXTI/EXTI_int.h"
 #include "../MCAL/DIO/DIO_int.h"
-#include <util/delay.h>
+#include "../MCAL/Timer/Timer_int.h"
 #include "APP_int.h"
 
 #define LED_ON			1
@@ -71,50 +71,50 @@ void carBlinkYellowLed(void)
 
 	LED_u8LedOff(CAR_LED_PORT, CAR_LED_GREEN_PIN);
 
-	for(u8 i=0; i<10; i++)
+	for(u8 i=0; i<5; i++)
 	{
 		LED_u8LedOn(CAR_LED_PORT, CAR_LED_YELLOW_PIN);
-		_delay_ms(500);
+		Timer_u8SetTimer0BusyWait_ms(500);
 		LED_u8LedOff(CAR_LED_PORT, CAR_LED_YELLOW_PIN);
-		_delay_ms(500);
+		Timer_u8SetTimer0BusyWait_ms(500);
 	}
 	APP_u8CarYellowLedState = LED_OFF;
 }
 
 void pedBlinkYellowLed(void)
 {
-	for(u8 i=0; i<10; i++)
+	for(u8 i=0; i<5; i++)
 	{
 		LED_u8LedOn(PED_LED_PORT, PED_LED_YELLOW_PIN);
-		_delay_ms(500);
+		Timer_u8SetTimer0BusyWait_ms(500);
 		LED_u8LedOff(PED_LED_PORT, PED_LED_YELLOW_PIN);
-		_delay_ms(500);
+		Timer_u8SetTimer0BusyWait_ms(500);
 	}
 }
 
 void pedAndCarBlinkYellowLed(void)
 {
-	for(u8 i=0; i<10; i++)
+	for(u8 i=0; i<5; i++)
 	{
 		LED_u8LedOn(PED_LED_PORT, PED_LED_YELLOW_PIN);
 		LED_u8LedOn(CAR_LED_PORT, CAR_LED_YELLOW_PIN);
-		_delay_ms(500);
+		Timer_u8SetTimer0BusyWait_ms(500);
 		LED_u8LedOff(PED_LED_PORT, PED_LED_YELLOW_PIN);
 		LED_u8LedOff(CAR_LED_PORT, CAR_LED_YELLOW_PIN);
-		_delay_ms(500);
+		Timer_u8SetTimer0BusyWait_ms(500);
 	}
 }
 
 void APP_voidNormalMode()
 {
 	carRedOnOff(LED_ON);
-	_delay_ms(5000);
+	Timer_u8SetTimer0BusyWait_ms(5000);
 	carRedOnOff(LED_OFF);
 
 	carBlinkYellowLed();
 	
 	carGreenOnOff(LED_ON);
-	_delay_ms(5000);
+	Timer_u8SetTimer0BusyWait_ms(5000);
 	carGreenOnOff(LED_OFF);
 
 	carBlinkYellowLed();
@@ -126,13 +126,13 @@ void APP_voidPedestrianMode()
 	{
 		LED_u8LedOn(PED_LED_PORT, PED_LED_GREEN_PIN);
 		// LED_u8LedOn(CAR_LED_PORT, CAR_LED_RED_PIN);
-		_delay_ms(5000);
+		Timer_u8SetTimer0BusyWait_ms(5000);
 		LED_u8LedOff(CAR_LED_PORT, CAR_LED_RED_PIN);
 		pedAndCarBlinkYellowLed();
 		LED_u8LedOff(PED_LED_PORT, PED_LED_GREEN_PIN);
 		LED_u8LedOn(PED_LED_PORT, PED_LED_RED_PIN);
 		LED_u8LedOn(CAR_LED_PORT, CAR_LED_GREEN_PIN);
-		_delay_ms(5000);
+		Timer_u8SetTimer0BusyWait_ms(5000);
 //		carBlinkYellowLed();
 //		LED_u8LedOn(CAR_LED_PORT, CAR_LED_RED_PIN);
 	}
@@ -149,7 +149,7 @@ void APP_voidPedestrianMode()
 
 		LED_u8LedOn(CAR_LED_PORT, CAR_LED_RED_PIN);
 		LED_u8LedOff(CAR_LED_PORT, CAR_LED_GREEN_PIN);
-		_delay_ms(5000);
+		Timer_u8SetTimer0BusyWait_ms(5000);
 
 		LED_u8LedOff(CAR_LED_PORT, CAR_LED_RED_PIN);
 		pedAndCarBlinkYellowLed();
@@ -157,7 +157,7 @@ void APP_voidPedestrianMode()
 		LED_u8LedOn(PED_LED_PORT, PED_LED_RED_PIN);
 		LED_u8LedOn(CAR_LED_PORT, CAR_LED_GREEN_PIN);
 
-//		_delay_ms(5000);
+//		Timer_u8SetTimer0BusyWait_ms(5);
 //		carBlinkYellowLed();
 //		LED_u8LedOn(CAR_LED_PORT, CAR_LED_RED_PIN);
 //		carBlinkYellowLed();
@@ -167,9 +167,9 @@ void APP_voidPedestrianMode()
 void APP_voidAppInit()
 {
 	Button_voidInit();
-	enableGlobalInterrupt();
 	EXTI_voidInt0Init();
 	EXTI_u8Int0SetCallback(&APP_voidPedestrianMode);
+	enableGlobalInterrupt();
 
 	while(1)
 	{
