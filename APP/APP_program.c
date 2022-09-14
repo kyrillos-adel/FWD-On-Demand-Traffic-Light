@@ -105,7 +105,7 @@ void pedAndCarBlinkYellowLed(void)
 	}
 }
 
-void APP_voidNormalMode()
+void APP_voidNormalMode(void)
 {
 	carRedOnOff(LED_ON);
 	Timer_u8SetTimer0BusyWait_ms(5000);
@@ -120,8 +120,13 @@ void APP_voidNormalMode()
 	carBlinkYellowLed();
 }
 
-void APP_voidPedestrianMode()
+/********************************************************************************************************************/
+/*Change from normal mode to pedestrian mode when the pedestrian button is pressed. (EXTI from INT0 -the button-)	*/
+/********************************************************************************************************************/
+void APP_voidPedestrianMode(void)
 {
+	/* If pressed when the cars' Red LED is on, the pedestrian's Green LED and the cars' Red LEDs will be on for five seconds,
+	 * this means that pedestrians can cross the street while the pedestrian's Green LED is on. */
 	if(APP_u8CarRedLedState == LED_ON)
 	{
 		LED_u8LedOn(PED_LED_PORT, PED_LED_GREEN_PIN);
@@ -137,6 +142,10 @@ void APP_voidPedestrianMode()
 //		LED_u8LedOn(CAR_LED_PORT, CAR_LED_RED_PIN);
 	}
 
+	/* If pressed when the cars' Green LED is on or the cars' Yellow LED is blinking, the pedestrian Red LED will be on
+	 * then both Yellow LEDs start to blink for five seconds,
+	 * then the cars' Red LED and pedestrian Green LEDs are on for five seconds,
+	 * this means that pedestrian must wait until the Green LED is on. */
 	else if(APP_u8CarGreenLedState == LED_ON || APP_u8CarYellowLedState == LED_ON)
 	{
 		LED_u8LedOff(PED_LED_PORT, PED_LED_GREEN_PIN);

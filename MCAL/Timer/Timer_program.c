@@ -1,9 +1,9 @@
-/*
- * Timer_program.c
- *
- *  Created on: Sep 13, 2022
- *      Author: Kero Adel
- */
+/***********************************************************/
+/***************** Author	: Kyrillos Adel	****************/
+/***************** Date		: 11-9-2022    	****************/
+/***************** Module	: Timer      	****************/
+/***************** Version	: v1.0      	****************/
+/***********************************************************/
 
 #include "Timer_config.h"
 #include "Timer_private.h"
@@ -24,6 +24,12 @@ f32 Timer0_overflowTime = ((f32)TIMER0_PRESCALAR/(f32)CPU_FREQ)*(f32)265;
 //    Timer0_overflowCounter++;
 //}
 
+
+/************************************************************************************************************/
+/* Description: A function to initialize the timer according the configurations in the config file			*/
+/* Arguments: void																							*/
+/* return: void																								*/
+/************************************************************************************************************/
 void Timer_u8Timer0Init(void)
 {
 //	enableGlobalInterrupt();
@@ -51,14 +57,21 @@ void Timer_u8Timer0Init(void)
 }
 
 
-
-u8 Timer_u8SetTimer0BusyWait_ms(u16 copy_u8Time_ms)
+/************************************************************************************************************/
+/* Description: A function to set busy wait (delay)															*/
+/* Arguments: input: copy_u16Time_ms  (Time in ms)															*/
+/* return: u8																								*/
+/*																											*/
+/* flow: it calculates the required number of overflows then poll on the TOV0 flag (Timer0 Overflow)		*/
+/* and increment the overflow counter till the required number												*/
+/************************************************************************************************************/
+u8 Timer_u8SetTimer0BusyWait_ms(u16 copy_u16Time_ms)
 {
 	u8 status = RT_OK;
 
 	u32 overflowCounter = 0;
 
-	u32 overflowNo = 1+((f32)copy_u8Time_ms / (1000*Timer0_overflowTime));
+	u32 overflowNo = 1+((f32)copy_u16Time_ms / (1000*Timer0_overflowTime));
 
 
 	Timer_u8Timer0Init();

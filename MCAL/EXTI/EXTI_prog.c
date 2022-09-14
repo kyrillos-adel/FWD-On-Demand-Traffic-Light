@@ -17,6 +17,12 @@
 /* global pointer to function to save the address of the call back function */
 void (*Callback)(void) = NULL;
 
+
+/************************************************************************************************************/
+/* Description: A function to set the callback function to the ISR											*/
+/* Arguments: input: void (*copy_pvInt0Func)(void) [A pointer to the callback funcion]						*/
+/* return: u8																								*/
+/************************************************************************************************************/
 u8 EXTI_u8Int0SetCallback(void (*copy_pvInt0Func)(void))
 {
     u8 status = RT_OK;
@@ -51,6 +57,11 @@ void disableGlobalInterrupt(void)
     CLR_BIT(SREG, SREG_I);
 }
 
+/************************************************************************************************************/
+/* Description: A function to Initialize the INT0 with the configurations set in config file				*/
+/* Arguments: void																							*/
+/* return: void																								*/
+/************************************************************************************************************/
 void EXTI_voidInt0Init(void)
 {
     /* Check sense control*/
@@ -99,13 +110,16 @@ void EXTI_voidInt2Init(void)
 
 }
 
-/* Set sense control of INT0
-    Input options:
-                    LOW_LEVEL
-                    ON_CHANGE
-                    FALLING_EDGE
-                    RISING_EDGE 
-                                */
+
+/************************************************************************************************************/
+/* Description: A function to set Set sense control of INT0													*/
+/* Arguments: Input options:																				*/
+/*                   			LOW_LEVEL																	*/
+/*                   			ON_CHANGE																	*/
+/*                    			FALLING_EDGE																*/
+/*                    			RISING_EDGE																	*/
+/* return: u8																								*/
+/************************************************************************************************************/
 u8 EXTI_u8Int0SetSenseControl(u8 copy_u8Sense)
 {
     u8 status = RT_OK;

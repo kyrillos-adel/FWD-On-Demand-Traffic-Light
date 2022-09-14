@@ -8,6 +8,12 @@
 #include "Button_int.h"
 #include "../../MCAL/DIO/DIO_int.h"
 
+
+/************************************************************************************************************/
+/* Description: A function to Initialize the Button with the configurations set in config file				*/
+/* Arguments: void																							*/
+/* return: void																								*/
+/************************************************************************************************************/
 void Button_voidInit(void)
 {
 	/* Set PIN2 @ PORTA to be input */
