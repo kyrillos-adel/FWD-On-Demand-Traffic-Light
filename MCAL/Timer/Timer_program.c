@@ -83,8 +83,6 @@ u8 Timer_u8SetTimer0BusyWait_ms(u16 copy_u16Time_ms)
 		overflowCounter++;
 	}
 
-	overflowCounter = 0;
-
 	return status;
 }
 

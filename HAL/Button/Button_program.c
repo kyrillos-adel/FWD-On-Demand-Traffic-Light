@@ -19,6 +19,6 @@ void Button_voidInit(void)
 	/* Set PIN2 @ PORTA to be input */
 	DIO_u8setPinDir(PORT_D, PIN_2, INPUT);
 
-	/* Enable Pull up resistor */
-	DIO_u8setPinVal(PORT_D, PIN_2, HIGH);
+//	/* Enable Pull up resistor */
+//	DIO_u8setPinVal(PORT_D, PIN_2, HIGH);
 }

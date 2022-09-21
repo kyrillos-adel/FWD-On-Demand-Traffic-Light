@@ -14,7 +14,7 @@
             FALLING_EDGE
             RISING_EDGE
                             */
-#define INT0_SENSE                  FALLING_EDGE
+#define INT0_SENSE                  RISING_EDGE
 
 /*Options:
             ENABLED
